@@ -1,0 +1,90 @@
+---
+import SectionTitle from "../common/SectionTitle.astro";
+
+const response = await fetch(
+  "https://ap-southeast-2.cdn.hygraph.com/content/clji9do62122a01tfhsnu68ev/master",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      query: `
+        {
+          whyUses {
+            title
+            description
+          }
+        }
+      `,
+    }),
+  }
+);
+const whyUses = await response.json();
+---
+
+<div>
+  <SectionTitle title="why us" />
+  <ul>
+    {
+      whyUses.data.whyUses.map((why) => (
+        <li class="item">
+          <h4>{why.title}</h4>
+          <p>{why.description}</p>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .item {
+    display: flex;
+    flex-direction: column;
+    /* border-top: solid black 1px; */
+    border-bottom: solid black 1px;
+    margin: 1rem 0 0 0;
+    padding: 0 0 1rem 0;
+  }
+
+  .item h3 {
+    margin-bottom: 1rem;
+  }
+
+  .item p {
+    margin-left: 25vw;
+    text-align: justify;
+    align-self: flex-end;
+  }
+
+  /* *******------------Responsive Design------------******* */
+
+  @media (min-width: 576px) {
+    .item p {
+      margin-left: 25vw;
+      margin-top: 2rem;
+    }
+
+    .item {
+      margin: 2rem 0 0 0;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .item {
+      margin: 4rem 0 0 0;
+      padding: 0 0 2rem 0;
+    }
+
+    .item p {
+      max-width: 500px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .item p {
+      max-width: 900px;
+    }
+  }
+</style>

@@ -1,0 +1,57 @@
+---
+import SectionTitle from "../common/SectionTitle.astro";
+import ServiceGrid from "../common/ServiceGrid.astro";
+
+export interface Props {
+  serviceDescription: string;
+}
+
+const { serviceDescription } = Astro.props;
+---
+
+<div id="services">
+  <SectionTitle title="our services" />
+  <h4 class="ser-des">
+    {serviceDescription}
+  </h4>
+  <div class="line-container">
+    <div class="vl"></div>
+  </div>
+  <ServiceGrid />
+</div>
+
+<style>
+
+  .ser-des {
+    text-align: center;
+  }
+  .line-container {
+    height: 5vw;
+    position: relative;
+    margin: 0.5rem;
+  }
+  .vl {
+    border-left: 1px solid rgb(0, 0, 0);
+    height: 100%;
+    margin-left: 50%;
+    position: absolute;
+  }
+
+/* *******------------Responsive Design------------******* */
+
+@media (min-width: 576px) {
+  .ser-des {
+    margin: 0 auto;
+    max-width: 900px;
+  }
+
+  @media (min-width: 1024px) {
+    .ser-des {
+    max-width: 1200px;
+  }
+  }
+}
+
+@media (min-width: 768px) {}
+ 
+</style>

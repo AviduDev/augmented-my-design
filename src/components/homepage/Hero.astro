@@ -1,0 +1,82 @@
+---
+export interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<div class="heroWrapper wrapper">
+  <h1 class="hero-title copy">{title}</h1>
+</div>
+
+<style>
+  .hero-title {
+    text-align: start;
+    overflow: hidden;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    color: var(--txred);
+    font-kerning: none;
+  }
+
+  .split-line {
+    overflow: hidden;
+  }
+
+  .split-parent {
+    overflow: hidden;
+  }
+
+
+  .word {
+    overflow: hidden;
+  }
+  /* *******------------Responsive Design------------******* */
+
+  @media (min-width: 768px) {
+    .hero-title {
+      max-width: 760px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero-title {
+      padding: 1rem;
+      max-width: 1200px;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .hero-title {
+      max-width: 1600px;
+    }
+  }
+
+  @media (min-width: 2560px) {
+    .hero-title {
+      max-width: 1900px;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import SplitType from "split-type";
+
+  // ---------------------------------------------------------
+
+  const heroTitle = new SplitType(".copy", { types: "words" });
+  const chars = heroTitle.words;
+
+  gsap.from(
+    chars,
+
+    {
+      yPercent: 100,
+      opacity: 1,
+      stagger: 0.05,
+      duration: 1,
+      ease: "power4.inOut",
+    }
+  );
+</script>

@@ -1,0 +1,79 @@
+---
+const response = await fetch(
+  "https://ap-southeast-2.cdn.hygraph.com/content/clji9do62122a01tfhsnu68ev/master",
+
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      query: `
+        {
+          faqs {
+            question
+            answer
+          }
+        }
+      `,
+    }),
+  }
+);
+
+const faqs = await response.json();
+---
+
+<ol class="container">
+  {
+    faqs.data.faqs.map((faq) => (
+      <li class="faq-holder">
+        <div class="faq">
+          <h4>{faq.question}</h4>
+        </div>
+        <div class="answer">
+          <p>{faq.answer}</p>
+        </div>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .faq-holder {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid black;
+    margin: 1rem 0 1rem 0;
+    padding: 0 0 1rem 0;
+  }
+
+  .answer {
+    text-align: end;
+    margin-left: 20vw;
+    margin-top: 0.5rem;
+    align-self: flex-end;
+    max-width: 500px;
+  }
+
+  /* *******------------Responsive Design------------******* */
+
+  @media (min-width: 576px) {
+    .answer {
+      margin: 1rem 0 1rem 0;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .answer {
+      margin: 2rem 0 2rem 0;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .answer {
+      margin: 4rem 0 4rem 0;
+      max-width: 600px;
+    }
+  }
+</style>

@@ -1,0 +1,192 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/homepage/Hero.astro";
+import Des from "../components/homepage/Des.astro";
+import Quote from "../components/homepage/Quote.astro";
+import Services from "../components/homepage/Services.astro";
+import WhyUs from "../components/homepage/WhyUs.astro";
+import Testimonial from "../components/common/Testimonial.astro";
+import Faqs from "../components/homepage/Faqs.astro";
+import Footer from "../components/common/Footer.astro";
+import Images from "../components/homepage/Images.astro";
+import SocialLinks from "../components/common/SocialLinks.astro";
+import Cta from "../components/common/Cta.astro";
+import Video from "../components/homepage/Video.astro";
+
+// --------------fetching data---------------
+const response = await fetch(
+  "https://ap-southeast-2.cdn.hygraph.com/content/clji9do62122a01tfhsnu68ev/master",
+
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      query: `
+        {
+          homePage(where: {id: "cljnvkiz22nq60c1iqtxc7hhm"}) {
+            heroTitle
+            heroImage
+            heroDescription
+            quote
+            serviceDescription
+          }
+        }
+      `,
+    }),
+  }
+);
+
+const homePage = await response.json();
+---
+
+<Layout
+  title="Melbourne Wedding Photography | Augmented Arts Weddings"
+  description="Melbourne's fastest growing wedding photography studio"
+>
+  <main>
+    <!-- ---------------------HERO--------------------- -->
+    <section class="hero">
+      <Hero title={homePage.data.homePage.heroTitle} />
+    </section>
+
+    <!-- ---------------------Video Section--------------------- -->
+    <section class="videoSection">
+      <Video />
+    </section>
+
+    <!-- ---------------------Social Links--------------------- -->
+    <section>
+      <SocialLinks />
+    </section>
+
+    <!-- ---------------------HERO-IMAGES--------------------- -->
+    <!-- <sectioin class="hero-images">
+      <Images />
+    </sectioin> -->
+
+    <!-- ---------------------HERO-DESCRIPTION--------------------- -->
+    <section class="description">
+      <Des description={homePage.data.homePage.heroDescription} />
+    </section>
+
+    <!-- ---------------------QUOTE--------------------- -->
+    <section class="quote">
+      <Quote quote={homePage.data.homePage.quote} />
+    </section>
+
+    <!-- ---------------------SERVICES--------------------- -->
+    <section class="services">
+      <Services
+        serviceDescription={homePage.data.homePage.serviceDescription}
+      />
+    </section>
+
+    <!-- ---------------------WHY US--------------------- -->
+    <section class="why">
+      <WhyUs />
+    </section>
+
+    <!-- ---------------------CTA--------------------- -->
+    <section id="cta" class="cta-section">
+      <Cta title="ready to capture your best moments with us?" />
+    </section>
+
+    <!-- ---------------------TESTIMONIALS--------------------- -->
+    <!-- <section id="testimonials" class="testimonials">
+      <Testimonial />
+    </section> -->
+
+    <!-- ---------------------FAQs--------------------- -->
+    <section class="faqs">
+      <Faqs />
+    </section>
+
+    <!-- ---------------------FOOTER--------------------- -->
+
+    <!-- ---------------------END--------------------- -->
+  </main>
+</Layout>
+
+<!--  -->
+<!-- --------------------------------------------------------------------------------- -->
+<!--  -->
+<style>
+  /* ---------------------Hero Styles--------------------- */
+  .hero {
+    /* min-height: 100vh; */
+    padding-top: 0;
+    margin-top: 0;
+    /* margin-bottom: 4rem; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: justify;
+    padding-bottom: 2rem;
+  }
+
+  .hero-images {
+    overflow: hidden;
+  }
+
+  .videoSection {
+    margin-top: 0;
+    padding-top: 0;
+  }
+  /* ---------------------Services Styles--------------------- */
+  .services {
+    display: grid;
+
+    margin-top: 8rem;
+    background-color: var(--bgyellow);
+  }
+
+  /* ---------------------Quote Styles--------------------- */
+  .quote {
+    margin-top: 8rem;
+  }
+
+  /* ---------------------Why Styles--------------------- */
+  .why {
+    margin-top: 8rem;
+  }
+
+  /* ---------------------Testimonials Styles--------------------- */
+  .testimonials {
+    margin-top: 8rem;
+    background-color: var(--bgyellow);
+  }
+
+  /* ---------------------CTA--------------------- */
+  .cta-section {
+    display: grid;
+    place-content: center;
+  }
+
+  /* ---------------------Testimonials Styles--------------------- */
+  .faqs {
+    margin-top: 8rem;
+  }
+
+  /* -------------------------------------------------------------------------- */
+
+  @media (min-width: 768px) {
+    .hero {
+      margin-top: 2rem;
+    }
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @media (min-width: 1440px) {
+    .hero {
+      margin-top: 1rem;
+    }
+  }
+</style>

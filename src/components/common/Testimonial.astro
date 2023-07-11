@@ -1,0 +1,90 @@
+---
+import SectionTitle from "./SectionTitle.astro";
+
+const response = await fetch(
+  "https://ap-southeast-2.cdn.hygraph.com/content/clji9do62122a01tfhsnu68ev/master",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      query: `
+        {
+          testimonials {
+            summary
+            coupleImage
+            testimony
+            coupleName
+            coupleLocation
+          }
+        }
+      `,
+    }),
+  }
+);
+const testimonials = await response.json();
+---
+
+<div>
+  <SectionTitle title="kind words" />
+  <div class="content-wrpper">
+    {
+      testimonials.data.testimonials.map((testimonial) => (
+        <div class="container">
+          <h4>{testimonial.summary}</h4>
+          <img src={testimonial.coupleImage.url} alt={testimonial.summary} />
+          <p>{testimonial.testimony}</p>
+          <p class="name">
+            {testimonial.coupleName}, {testimonial.coupleLocation}
+          </p>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  section {
+    background-color: var(--bgyellow);
+  }
+
+  .container {
+    background-color: white;
+    border: 1px solid black;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .content-wrpper {
+    display: grid;
+    margin: 0 auto;
+    gap: 0.5rem;
+  }
+
+  .name {
+    font-weight: bold;
+    align-self: flex-end;
+    margin-top: 0.5rem;
+  }
+
+  /* *******------------Responsive Design------------******* */
+
+@media (min-width: 576px) {
+  .content-wrpper {
+    display: grid;
+    grid-template-columns: minmax(260px, 1fr) minmax(260px, 1fr);
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  img {
+    min-width: 100%;
+  }
+}
+</style>

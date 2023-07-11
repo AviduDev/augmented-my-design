@@ -1,0 +1,78 @@
+---
+export interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<div class="cta-container">
+  <div class="cta-circle"></div>
+  <h4 class="cta-title">{title}</h4>
+  <div class="cta-links">
+    <a href="#">reach us</a>
+    <a href="#testimonials">not sure?</a>
+  </div>
+</div>
+
+<!--  -->
+<!-- ------------------------------------------------------------- -->
+<!--  -->
+
+<style>
+  .cta-container {
+    position: relative;
+    width: 100%;
+    display: grid;
+    place-content: center;
+  }
+
+  .cta-title {
+    font-size: 2rem;
+  }
+
+  .cta-title,
+  .cta-links {
+    color: var(--bgwhite);
+    text-align: center;
+    mix-blend-mode: difference;
+  }
+
+  .cta-links {
+    margin-top: 2rem;
+  }
+
+  .cta-links a {
+   margin: 0.5rem;
+   padding: 0.5rem;
+  }
+
+  .cta-circle {
+    background-color: var(--txred);
+    border-radius: 50%;
+    width: 25%;
+    aspect-ratio: 1 / 1;
+    position: absolute;
+    margin: auto 0;
+  }
+
+  /* *******------------Responsive Design------------******* */
+
+@media (min-width: 768px) {
+  .cta-container {
+    max-width: 760px;
+  }
+  .cta-title {
+    font-size: 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cta-container {
+    max-width: 1200px;
+  }
+  .cta-title {
+    font-size: 6rem;
+  }
+}
+</style>

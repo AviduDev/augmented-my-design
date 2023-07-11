@@ -1,0 +1,93 @@
+---
+---
+
+<footer>
+  <div class="bottom">
+    <p class="copyright">2023©augmented arts weddings</p>
+
+    <hr />
+
+    <div class="social-term-links">
+      <ul class="social">
+        <li>
+          <a href="#">Instagram</a>
+        </li>
+        <li>
+          <a href="#">pinterest</a>
+        </li>
+        <li>
+          <a href="#">facebook</a>
+        </li>
+      </ul>
+
+      <ul class="terms">
+        <li>
+          <a href="#">Terms and conditions</a>
+        </li>
+        <li>
+          <a href="#">privacy policy</a>
+        </li>
+        <li>
+          <a href="#">Return policy</a>
+        </li>
+        <li>
+          <a href="#">Refund policy</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<style>
+  ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    list-style: none;
+  }
+
+  ul > li {
+    margin: 0.2rem 0.5rem 0.2rem 0.5rem;
+  }
+  footer {
+    background-color: var(--bgyellow);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0.5rem 1rem 0.5rem;
+  }
+
+  footer a {
+    text-decoration: underline;
+    text-transform: capitalize;
+  }
+  .social {
+    margin: 1rem 0 1rem 0;
+  }
+
+  .copyright {
+    text-transform: uppercase;
+    font-size: 8vw;
+    margin-bottom: 2rem;
+  }
+
+  .footer {
+    padding: 1rem;
+  }
+
+  .bottom {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* ******-----------------Responsive-----------------******* */
+
+  @media (min-width: 576px) {
+    .copyright {
+      font-size: 10vw;
+    }
+  }
+</style>

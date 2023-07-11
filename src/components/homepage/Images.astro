@@ -1,0 +1,64 @@
+---
+
+
+// ---------------------------data fetching-------------------------
+
+const response = await fetch(
+  "https://ap-southeast-2.cdn.hygraph.com/content/clji9do62122a01tfhsnu68ev/master",
+
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      query: `
+        {
+          homePage(where: {id: "cljnvkiz22nq60c1iqtxc7hhm"}) {
+            heroImage
+          }
+        }
+      `,
+    }),
+  }
+);
+
+const homePage = await response.json();
+---
+
+<!-- ----------------------------------------------------- -->
+
+<ul class="image-container">
+  {
+    homePage.data.homePage.heroImage.map((images) => (
+      <li class="image-item">
+        <img class="image" src={images.url} alt="" />
+      </li>
+    ))
+  }
+</ul>
+
+<!-- ------------------------------------------------------ -->
+
+<style>
+  .image {
+    height: 100%;
+    max-width: 60vw;
+    object-fit: cover;
+    object-position: center;
+  }
+
+
+  .image-container {
+    height: 50vh;
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    overflow: hidden;
+  }
+
+  .image-item {
+    margin-right: 0.5rem;
+  }
+</style>

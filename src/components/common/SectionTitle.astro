@@ -1,0 +1,43 @@
+---
+export interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<div class="title-container">
+  <h2>{title}</h2>
+  <hr class="section-hr" />
+</div>
+
+<style>
+  .title-container {
+    margin: 0 0 1rem 0;
+  }
+
+  .section-hr {
+    margin-bottom: 2rem;
+    border: solid black 1px;
+  }
+
+  /* *******------------Responsive Design------------******* */
+
+  @media (min-width: 576px) {
+    .section-hr {
+      margin-bottom: 3rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .section-hr {
+      margin-bottom: 4rem;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .section-hr {
+      margin-bottom: 6rem;
+    }
+  }
+</style>

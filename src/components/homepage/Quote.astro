@@ -1,0 +1,42 @@
+---
+export interface Props {
+  quote: string;
+}
+
+const { quote } = Astro.props;
+---
+
+<div class="container">
+  <h4 class="description">
+    {quote}
+  </h4>
+  <p class="name">Anne hathaway, Brooklyn, New York</p>
+</div>
+
+<style>
+
+  .container {
+    margin: 0 auto;
+  }
+  .description {
+    text-align: center;
+  }
+  .name {
+    text-align: end;
+    margin-top: 1rem;
+  }
+
+  /* *******------------Responsive Design------------******* */
+
+  @media (min-width: 768px) {
+    .container {
+      max-width: 760px;
+    }
+  }
+
+  @media (min-width: 2560px) {
+    .container {
+      max-width: 1200px;
+    }
+  }
+</style>

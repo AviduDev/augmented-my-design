@@ -1,0 +1,72 @@
+---
+export interface Props {
+  description: string;
+}
+
+const { description } = Astro.props;
+---
+
+<div>
+  <div class="container">
+    <p class="paragraph">
+      {description}
+    </p>
+    <div class="links">
+      <a class="link" href="/weddings">weddings</a>
+      <a class="link" href="/packages">packages</a>
+    </div>
+  </div>
+</div>
+
+<style>
+
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+  .paragraph {
+    text-align: justify;
+    margin-left: 20vw;
+    margin-top: 2rem;
+  }
+
+  .links {
+    margin-top: 1rem;
+    text-align: end;
+  }
+
+  .link {
+    margin: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  /* *******------------Responsive Design*******------------ */
+
+  @media (min-width: 576px) {
+    .links {
+      margin-top: 2rem;
+    }
+
+    .paragraph {
+      margin-top: 4rem;
+      align-self: flex-end;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .paragraph {
+      max-width: 500px;
+    }
+  }
+
+  @media (min-width: 2560px) {
+    .paragraph {
+      max-width: 800px;
+      margin-top: 6rem;
+    }
+    .links {
+      margin-top: 4rem;
+    }
+
+  }
+</style>

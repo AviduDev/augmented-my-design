@@ -1,0 +1,117 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+
+import Cta from "../../../components/common/Cta.astro";
+
+// -------------------------------------DATA FETCHING----------------------------------------
+export async function getStaticPaths() {
+  const response = await fetch(
+    "https://ap-southeast-2.cdn.hygraph.com/content/clji9do62122a01tfhsnu68ev/master",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        query: `
+        {
+            services {
+                title
+                slug
+                background
+                serviceList {
+                    html
+                }
+                serviceDescription {
+                    html
+                }
+                locations
+            }
+        }
+      `,
+      }),
+    }
+  );
+
+  const services = await response.json();
+
+  const paths = services.data.services.map((service) => ({
+    params: {
+      slug: service.slug,
+    },
+    props: {
+      service,
+    },
+  }));
+
+  return paths;
+}
+
+const service = Astro.props.service;
+---
+
+<Layout title={service.title} description="">
+  <main>
+    <!-- ---------------------------Top--------------------------- -->
+    <section class="top-section">
+      <h1 class="title">{service.title}</h1>
+      <img
+        class="main-image"
+        src={service.background.url}
+        alt={service.title}
+      />
+      <p class="location">{service.locations}</p>
+    </section>
+
+    <!-- ---------------------------Description--------------------------- -->
+    <section class="description">
+      <Fragment class="html" set:html={service.serviceDescription.html} />
+    </section>
+
+    <!-- ---------------------------Services List--------------------------- -->
+    <section class="service-list">
+      <Fragment class="html" set:html={service.serviceList.html} />
+    </section>
+
+    <!-- ---------------------------Cta--------------------------- -->
+    <section class="cta">
+      <Cta title="Film your wedding day with us" />
+    </section>
+    <!-- ---------------------------Testimonials--------------------------- -->
+    <!-- ---------------------------TOP SECTION--------------------------- -->
+  </main>
+</Layout>
+
+<style>
+  .top-section {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.5rem;
+  }
+
+  .main-image {
+    top: 0.5rem;
+    left: 0.5rem;
+    z-index: -1;
+    position: absolute;
+  }
+
+  .title {
+    position: sticky;
+    top: 0.5rem;
+  }
+
+  .title,
+  .location {
+    color: var(--bgwhite);
+    mix-blend-mode: difference;
+  }
+
+  .location {
+    align-self: end;
+  }
+</style>
